@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>BioExplore Nusantara | Ensiklopedia Flora & Fauna 38 Provinsi Indonesia</title>
+    <meta name="title" content="BioExplore Nusantara | Ensiklopedia Flora & Fauna 38 Provinsi Indonesia">
+    <meta name="description"
+        content="Jelajahi kekayaan biodiversitas Indonesia! Database lengkap flora dan fauna identitas dari 38 provinsi dengan informasi detail, status konservasi, dan tips budidaya.">
+    <meta name="keywords"
+        content="flora fauna Indonesia, biodiversitas, keanekaragaman hayati, flora identitas, fauna identitas, dinacom_notext.png38 provinsi, konservasi, IUCN, hewan langka, tumbuhan langka">
+    <meta name="author" content="BioExplore Nusantara">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Indonesian">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartonesda.github.io/bioexplore-nusantara/">
+    <meta property="og:title" content="BioExplore Nusantara | Ensiklopedia Flora & Fauna Indonesia">
+    <meta property="og:description"
+        content="Jelajahi kekayaan biodiversitas Indonesia! Database lengkap flora dan fauna identitas dari 38 provinsi.">
+    <meta property="og:image"
+        content="https://smartonesda.github.io/bioexplore-nusantara/assets/images/dinacom_notext.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="BioExplore Nusantara">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://smartonesda.github.io/bioexplore-nusantara/">
+    <meta property="twitter:title" content="BioExplore Nusantara | Ensiklopedia Flora & Fauna Indonesia">
+    <meta property="twitter:description"
+        content="Jelajahi kekayaan biodiversitas Indonesia! Database lengkap flora dan fauna identitas dari 38 provinsi.">
+    <meta property="twitter:image"
+        content="https://smartonesda.github.io/bioexplore-nusantara/assets/images/dinacom_notext.png">
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#059669">
+    <meta name="msapplication-TileColor" content="#059669">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="./assets/images/dinacom_notext.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <div class="navbar-brand">
+                <img width="50px" src="assets/images/dinacom_notext.png" alt="Logo">
+                <div>
+                    <h1 class="navbar-title">BioExplore <span>Nusantara</span></h1>
+                    <p class="navbar-subtitle">Database 38 Provinsi</p>
+                </div>
+            </div>
+            <span class="navbar-badge">
+                <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                Data Terverifikasi V5.0
+            </span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2 class="hero-title">Eksplorasi Kekayaan Alam Indonesia</h2>
+            <p class="hero-subtitle">Pilih provinsi untuk melihat detail Flora & Fauna Identitas beserta spesies
+                lainnya.</p>
+
+            <div class="select-wrapper">
+                <select id="provinceSelect" class="province-select">
+                    <!-- JS will populate -->
+                </select>
+                <div class="select-icon-left">
+                    <i class="fas fa-map-location-dot"></i>
+                </div>
+                <div class="select-icon-right">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Loading -->
+            <div id="loading" class="loading">
+                <i class="fas fa-circle-notch fa-spin loading-spinner"></i>
+            </div>
+
+            <!-- Cards Grid -->
+            <div id="content" class="cards-grid">
+                <!-- Flora Card -->
+                <div class="card fade-in">
+                    <div class="card-header flora">
+                        <div>
+                            <div class="card-label">Flora Identitas</div>
+                            <h2 id="floraName" class="card-title">-</h2>
+                            <p id="floraLatin" class="card-latin">-</p>
+                        </div>
+                        <i class="fas fa-seedling card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <table class="info-table">
+                            <tbody>
+                                <tr>
+                                    <td>Nama Lain</td>
+                                    <td id="f_alias">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Warna</td>
+                                    <td id="f_color">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Aroma</td>
+                                    <td id="f_scent">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Tinggi</td>
+                                    <td id="f_height">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Habitat</td>
+                                    <td id="f_habitat">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Simbol</td>
+                                    <td id="f_symbol">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Budaya</td>
+                                    <td id="f_culture">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Manfaat</td>
+                                    <td id="f_use">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Identitas</td>
+                                    <td id="f_identity">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Tips Tanam</td>
+                                    <td id="f_tips">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td><span id="f_status" class="badge badge-safe">-</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="others-section">
+                            <h4 class="others-title">
+                                <i class="fas fa-list-ul"></i> 10 Flora Lainnya
+                            </h4>
+                            <div id="floraOthers" class="others-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fauna Card -->
+                <div class="card fade-in">
+                    <div class="card-header fauna">
+                        <div>
+                            <div class="card-label">Fauna Identitas</div>
+                            <h2 id="faunaName" class="card-title">-</h2>
+                            <p id="faunaLatin" class="card-latin">-</p>
+                        </div>
+                        <i class="fas fa-paw card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <table class="info-table">
+                            <tbody>
+                                <tr>
+                                    <td>Nama Lain</td>
+                                    <td id="a_alias">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Ukuran</td>
+                                    <td id="a_size">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Warna</td>
+                                    <td id="a_color">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Habitat</td>
+                                    <td id="a_habitat">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Identitas</td>
+                                    <td id="a_identity">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Adaptabilitas</td>
+                                    <td id="a_adapt">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td><span id="a_status" class="badge badge-danger">-</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="others-section">
+                            <h4 class="others-title">
+                                <i class="fas fa-list-ul"></i> 10 Fauna Lainnya
+                            </h4>
+                            <div id="faunaOthers" class="others-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Species Detail Modal -->
+    <div id="speciesModal" class="modal-overlay">
+        <div class="modal">
+            <div id="modalHeader" class="modal-header flora">
+                <div>
+                    <h3 id="modalTitle" class="modal-title">Nama Spesies</h3>
+                    <p id="modalSubtitle" class="modal-subtitle">Nama Latin</p>
+                </div>
+                <button class="modal-close" onclick="closeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <div class="modal-label">Status Konservasi</div>
+                    <div id="modalStatus" class="modal-status danger">-</div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-label">Habitat</div>
+                    <div id="modalHabitat" class="modal-value">-</div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-label">Deskripsi</div>
+                    <div id="modalDesc" class="modal-value">-</div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-label">Ciri Khas</div>
+                    <div id="modalCiri" class="modal-value">-</div>
+                </div>
+                <div class="modal-section">
+                    <div class="modal-label">Ancaman Utama</div>
+                    <div id="modalAncaman" class="modal-value">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">Ensiklopedia Biodiversitas Nusantara © 2026</p>
+            <p class="footer-source">Sumber Data: Permen LHK No. P.106/2018, IUCN Red List & Pemerintah Provinsi.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
