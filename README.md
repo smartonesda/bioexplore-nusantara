@@ -59,6 +59,18 @@ flora-fauna/
 | Flora Lainnya | 380 spesies |
 | Fauna Lainnya | 380 spesies |
 
+## 🔌 Developer API
+
+Untuk mengonsumsi data JSON secara programatik, lihat dokumentasi lengkap:
+
+📖 **[API Documentation](./API_DOCS.md)** - Panduan lengkap untuk developer
+
+Mencakup:
+- Type definitions (TypeScript)
+- Contoh penggunaan JavaScript
+- Advanced filtering (by status, by nama)
+- Framework integration (React, Vue, Svelte)
+
 ## 📜 Sumber Data
 
 - Peraturan Menteri LHK No. P.106/2018

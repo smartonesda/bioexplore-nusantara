@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation | BioExplore Nusantara</title>
+    <meta name="description"
+        content="Dokumentasi lengkap untuk developer yang ingin mengonsumsi data flora & fauna Indonesia dari BioExplore Nusantara.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Prism.js for syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/docs.css">
+    <link rel="shortcut icon" href="./assets/images/dinacom_notext.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="index.html" class="navbar-brand">
+                <img width="50px" src="assets/images/dinacom_notext.png" alt="Logo">
+                <div>
+                    <h1 class="navbar-title">BioExplore <span>Nusantara</span></h1>
+                    <p class="navbar-subtitle">API Documentation</p>
+                </div>
+            </a>
+            <div class="navbar-links">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#quick-start" class="nav-link active">
+                    <i class="fas fa-book"></i> Docs
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Docs -->
+    <section class="docs-hero">
+        <div class="container">
+            <div class="docs-hero-badge">
+                <i class="fas fa-code"></i> Developer Documentation
+            </div>
+            <h1 class="docs-hero-title">BioExplore API</h1>
+            <p class="docs-hero-subtitle">
+                Akses data <strong>836+ spesies</strong> flora & fauna dari <strong>38 provinsi</strong> Indonesia
+            </p>
+            <div class="docs-hero-actions">
+                <a href="#quick-start" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i> Quick Start
+                </a>
+                <a href="./assets/data/provinsi.json" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> Download JSON
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Docs Content -->
+    <main class="docs-main">
+        <div class="container docs-container">
+            <!-- Sidebar -->
+            <aside class="docs-sidebar">
+                <nav class="docs-nav">
+                    <div class="docs-nav-section">
+                        <h3>Memulai</h3>
+                        <a href="#quick-start" class="docs-nav-link active">
+                            <i class="fas fa-play-circle"></i> Quick Start
+                        </a>
+                        <a href="#data-source" class="docs-nav-link">
+                            <i class="fas fa-database"></i> Sumber Data
+                        </a>
+                    </div>
+                    <div class="docs-nav-section">
+                        <h3>Struktur Data</h3>
+                        <a href="#overview" class="docs-nav-link">
+                            <i class="fas fa-sitemap"></i> Overview
+                        </a>
+                        <a href="#flora-schema" class="docs-nav-link">
+                            <i class="fas fa-seedling"></i> Flora Schema
+                        </a>
+                        <a href="#fauna-schema" class="docs-nav-link">
+                            <i class="fas fa-paw"></i> Fauna Schema
+                        </a>
+                    </div>
+                    <div class="docs-nav-section">
+                        <h3>Penggunaan</h3>
+                        <a href="#use-cases" class="docs-nav-link">
+                            <i class="fas fa-code"></i> Use Cases
+                        </a>
+                        <a href="#filtering" class="docs-nav-link">
+                            <i class="fas fa-filter"></i> Filtering
+                        </a>
+                        <a href="#frameworks" class="docs-nav-link">
+                            <i class="fas fa-layer-group"></i> Frameworks
+                        </a>
+                    </div>
+                    <div class="docs-nav-section">
+                        <h3>Referensi</h3>
+                        <a href="#status-ref" class="docs-nav-link">
+                            <i class="fas fa-shield-alt"></i> Status Konservasi
+                        </a>
+                        <a href="#provinsi-list" class="docs-nav-link">
+                            <i class="fas fa-map-marked-alt"></i> Daftar Provinsi
+                        </a>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Content -->
+            <div class="docs-content">
+                <!-- Quick Start -->
+                <section id="quick-start" class="docs-section">
+                    <h2><i class="fas fa-rocket"></i> Quick Start</h2>
+                    <p class="docs-intro">
+                        Mulai menggunakan data BioExplore dalam <strong>30 detik</strong>. Cukup fetch JSON dan siap
+                        digunakan!
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                        <pre><code class="language-javascript">// Fetch data dari CDN
+const response = await fetch(
+  'https://smartonesda.github.io/bioexplore-nusantara/assets/data/provinsi.json'
+);
+const data = await response.json();
+
+// Ambil data satu provinsi
+const aceh = data["Aceh"];
+
+console.log(aceh.flora.nama);  // "Cempaka Kuning"
+console.log(aceh.fauna.nama);  // "Cempala Kuneng"</code></pre>
+                    </div>
+
+                    <div class="info-callout success">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Langsung Pakai!</strong>
+                            <p>Data bersifat statis dan publik. Tidak perlu API key atau autentikasi.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Data Source -->
+                <section id="data-source" class="docs-section">
+                    <h2><i class="fas fa-database"></i> Sumber Data</h2>
+
+                    <div class="endpoint-card">
+                        <div class="endpoint-method">GET</div>
+                        <div class="endpoint-url">
+                            <code>https://smartonesda.github.io/bioexplore-nusantara/assets/data/provinsi.json</code>
+                        </div>
+                        <button class="copy-btn small"
+                            onclick="copyText('https://smartonesda.github.io/bioexplore-nusantara/assets/data/provinsi.json')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon flora"><i class="fas fa-map"></i></div>
+                            <div class="stat-value">38</div>
+                            <div class="stat-label">Provinsi</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon flora"><i class="fas fa-seedling"></i></div>
+                            <div class="stat-value">418</div>
+                            <div class="stat-label">Flora</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon fauna"><i class="fas fa-paw"></i></div>
+                            <div class="stat-value">418</div>
+                            <div class="stat-label">Fauna</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon warning"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="stat-value">~580KB</div>
+                            <div class="stat-label">File Size</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Overview -->
+                <section id="overview" class="docs-section">
+                    <h2><i class="fas fa-sitemap"></i> Struktur Data Overview</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JSON Structure</span>
+                        </div>
+                        <pre><code class="language-json">{
+  "Aceh": {
+    "flora": {
+      "nama": "Cempaka Kuning",
+      "namaLain": "Bungong Jeumpa",
+      "latin": "Michelia champaca",
+      ...13 properties total,
+      "lainnya": [ ...10 flora lainnya ]
+    },
+    "fauna": {
+      "nama": "Cempala Kuneng",
+      "latin": "Copsychus pyrropygus",
+      ...8 properties total,
+      "lainnya": [ ...10 fauna lainnya ]
+    }
+  },
+  "Sumatera Utara": { ... },
+  ... 38 provinsi total
+}</code></pre>
+                    </div>
+
+                    <div class="schema-diagram">
+                        <div class="schema-node root">
+                            <span>provinsi.json</span>
+                        </div>
+                        <div class="schema-children">
+                            <div class="schema-node province">
+                                <span>{NamaProvinsi}</span>
+                                <small>× 38</small>
+                            </div>
+                            <div class="schema-children-inner">
+                                <div class="schema-branch">
+                                    <div class="schema-node flora">
+                                        <i class="fas fa-seedling"></i> flora
+                                    </div>
+                                    <div class="schema-details">
+                                        <span>13 properties</span>
+                                        <span>+ lainnya[10]</span>
+                                    </div>
+                                </div>
+                                <div class="schema-branch">
+                                    <div class="schema-node fauna">
+                                        <i class="fas fa-paw"></i> fauna
+                                    </div>
+                                    <div class="schema-details">
+                                        <span>8 properties</span>
+                                        <span>+ lainnya[10]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Flora Schema -->
+                <section id="flora-schema" class="docs-section">
+                    <h2><i class="fas fa-seedling"></i> Flora Schema</h2>
+
+                    <h3>Flora Identitas (13 Properties)</h3>
+                    <div class="schema-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Type</th>
+                                    <th>Deskripsi</th>
+                                    <th>Contoh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>nama</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama umum tanaman</td>
+                                    <td>"Cempaka Kuning"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>namaLain</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama daerah/alternatif</td>
+                                    <td>"Bungong Jeumpa"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>latin</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama ilmiah (Latin)</td>
+                                    <td>"Michelia champaca"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>warna</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Warna bunga/daun</td>
+                                    <td>"Kuning jingga"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>aroma</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Karakteristik aroma</td>
+                                    <td>"Sangat harum semerbak"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>tinggi</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Tinggi tanaman</td>
+                                    <td>"15-25 meter"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>habitat</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Habitat alami</td>
+                                    <td>"Hutan dataran rendah"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>simbol</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Makna simbolis</td>
+                                    <td>"Keharuman & kesucian"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>budaya</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Peran dalam budaya</td>
+                                    <td>"Lagu daerah & upacara adat"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>manfaat</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Manfaat/kegunaan</td>
+                                    <td>"Minyak wangi, tanaman hias"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>identitas</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Keterangan identitas</td>
+                                    <td>"Flora Identitas Aceh"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>tips</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Tips budidaya</td>
+                                    <td>"Butuh matahari penuh..."</td>
+                                </tr>
+                                <tr>
+                                    <td><code>status</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Status konservasi</td>
+                                    <td>"Umum - Least Concern (LC)"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>lainnya</code></td>
+                                    <td><span class="type">array</span></td>
+                                    <td>10 flora lainnya</td>
+                                    <td>[{...}, {...}]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Flora Lainnya (8 Properties per item)</h3>
+                    <div class="schema-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Type</th>
+                                    <th>Deskripsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>nama</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama tanaman</td>
+                                </tr>
+                                <tr>
+                                    <td><code>latin</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama Latin</td>
+                                </tr>
+                                <tr>
+                                    <td><code>status</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Status singkat (Umum/Langka/dll)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>statusDetail</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Deskripsi lengkap status IUCN</td>
+                                </tr>
+                                <tr>
+                                    <td><code>habitat</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Lokasi habitat</td>
+                                </tr>
+                                <tr>
+                                    <td><code>deskripsi</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Deskripsi spesies</td>
+                                </tr>
+                                <tr>
+                                    <td><code>ciriKhas</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Ciri-ciri khas</td>
+                                </tr>
+                                <tr>
+                                    <td><code>ancaman</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Ancaman terhadap populasi</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Fauna Schema -->
+                <section id="fauna-schema" class="docs-section">
+                    <h2><i class="fas fa-paw"></i> Fauna Schema</h2>
+
+                    <h3>Fauna Identitas (9 Properties)</h3>
+                    <div class="schema-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Type</th>
+                                    <th>Deskripsi</th>
+                                    <th>Contoh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>nama</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama umum hewan</td>
+                                    <td>"Cempala Kuneng"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>namaLain</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama alternatif</td>
+                                    <td>"Kucica Ekor Kuning"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>latin</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Nama ilmiah</td>
+                                    <td>"Copsychus pyrropygus"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>ukuran</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Ukuran tubuh</td>
+                                    <td>"21 cm (Kecil)"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>warna</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Warna bulu/kulit</td>
+                                    <td>"Abu-abu cokelat, perut kuning"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>habitat</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Habitat alami</td>
+                                    <td>"Hutan rawa & dataran rendah"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>identitas</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Keterangan identitas</td>
+                                    <td>"Fauna Identitas Aceh"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>adaptasi</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Info adaptabilitas penangkaran</td>
+                                    <td>"Sangat sulit beradaptasi..."</td>
+                                </tr>
+                                <tr>
+                                    <td><code>status</code></td>
+                                    <td><span class="type">string</span></td>
+                                    <td>Status konservasi</td>
+                                    <td>"Terancam - Endangered (EN)"</td>
+                                </tr>
+                                <tr>
+                                    <td><code>lainnya</code></td>
+                                    <td><span class="type">array</span></td>
+                                    <td>10 fauna lainnya</td>
+                                    <td>[{...}, {...}]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-callout info">
+                        <i class="fas fa-info-circle"></i>
+                        <div>
+                            <strong>Fauna Lainnya</strong>
+                            <p>Struktur sama dengan Flora Lainnya (8 properties: nama, latin, status, statusDetail,
+                                habitat, deskripsi, ciriKhas, ancaman)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Use Cases -->
+                <section id="use-cases" class="docs-section">
+                    <h2><i class="fas fa-code"></i> Common Use Cases</h2>
+
+                    <div class="use-case">
+                        <h3><span class="use-case-num">1</span> Ambil Data Satu Provinsi</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">JavaScript</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">async function getProvinsiData(namaProvinsi) {
+  const response = await fetch('./assets/data/provinsi.json');
+  const data = await response.json();
+  
+  return data[namaProvinsi]; // { flora: {...}, fauna: {...} }
+}
+
+// Usage
+const aceh = await getProvinsiData("Aceh");
+console.log(aceh.flora.nama);  // "Cempaka Kuning"
+console.log(aceh.fauna.nama);  // "Cempala Kuneng"</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="use-case">
+                        <h3><span class="use-case-num">2</span> Ambil Flora Identitas</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">JavaScript</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">async function getFloraIdentitas(namaProvinsi) {
+  const provinsi = await getProvinsiData(namaProvinsi);
+  
+  // Destructure only the main properties (exclude lainnya)
+  const { lainnya, ...floraIdentitas } = provinsi.flora;
+  
+  return floraIdentitas;
+}
+
+// Returns object with: nama, namaLain, latin, warna, aroma, 
+// tinggi, habitat, simbol, budaya, manfaat, identitas, tips, status</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="use-case">
+                        <h3><span class="use-case-num">3</span> Ambil Daftar Flora/Fauna Lainnya</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">JavaScript</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">async function getFloraLainnya(namaProvinsi) {
+  const provinsi = await getProvinsiData(namaProvinsi);
+  return provinsi.flora.lainnya; // Array of 10 species
+}
+
+async function getFaunaLainnya(namaProvinsi) {
+  const provinsi = await getProvinsiData(namaProvinsi);
+  return provinsi.fauna.lainnya; // Array of 10 species
+}
+
+// Example output
+const faunaAceh = await getFaunaLainnya("Aceh");
+// [{ nama: "Harimau Sumatera", latin: "Panthera tigris sumatrae", ... }, ...]</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Filtering -->
+                <section id="filtering" class="docs-section">
+                    <h2><i class="fas fa-filter"></i> Advanced Filtering</h2>
+
+                    <div class="use-case">
+                        <h3><span class="use-case-num">🔍</span> Filter by Status Konservasi</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">JavaScript</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">async function filterByStatus(targetStatus, type = 'flora') {
+  const response = await fetch('./assets/data/provinsi.json');
+  const data = await response.json();
+  
+  const results = [];
+  
+  for (const [provinsi, content] of Object.entries(data)) {
+    // Check main species
+    if (content[type].status.includes(targetStatus)) {
+      results.push({ provinsi, type: 'Identitas', ...content[type] });
+    }
+    
+    // Check "lainnya" array
+    content[type].lainnya
+      .filter(species => species.status === targetStatus)
+      .forEach(species => {
+        results.push({ provinsi, type: 'Lainnya', ...species });
+      });
+  }
+  
+  return results;
+}
+
+// Example: Get all critically endangered fauna
+const kritisSpecies = await filterByStatus("Kritis", "fauna");</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="use-case">
+                        <h3><span class="use-case-num">🔎</span> Search by Nama Spesies</h3>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">JavaScript</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">async function searchSpecies(keyword) {
+  const response = await fetch('./assets/data/provinsi.json');
+  const data = await response.json();
+  const searchKey = keyword.toLowerCase();
+  const results = [];
+  
+  for (const [provinsi, content] of Object.entries(data)) {
+    // Search in flora
+    if (content.flora.nama.toLowerCase().includes(searchKey)) {
+      results.push({ provinsi, type: 'Flora Identitas', data: content.flora });
+    }
+    content.flora.lainnya.forEach(species => {
+      if (species.nama.toLowerCase().includes(searchKey)) {
+        results.push({ provinsi, type: 'Flora Lainnya', data: species });
+      }
+    });
+    
+    // Search in fauna (same pattern)
+    if (content.fauna.nama.toLowerCase().includes(searchKey)) {
+      results.push({ provinsi, type: 'Fauna Identitas', data: content.fauna });
+    }
+    content.fauna.lainnya.forEach(species => {
+      if (species.nama.toLowerCase().includes(searchKey)) {
+        results.push({ provinsi, type: 'Fauna Lainnya', data: species });
+      }
+    });
+  }
+  
+  return results;
+}
+
+// Example: Find all "Harimau" species
+const harimauResults = await searchSpecies("harimau");</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Frameworks -->
+                <section id="frameworks" class="docs-section">
+                    <h2><i class="fas fa-layer-group"></i> Framework Integration</h2>
+
+                    <div class="framework-tabs">
+                        <button class="tab-btn active" onclick="showTab('laravel')">
+                            <i class="fab fa-laravel"></i> Laravel
+                        </button>
+                        <button class="tab-btn" onclick="showTab('ci')">
+                            <i class="fas fa-fire-alt"></i> CodeIgniter
+                        </button>
+                        <button class="tab-btn" onclick="showTab('react')">
+                            <i class="fab fa-react"></i> React
+                        </button>
+                        <button class="tab-btn" onclick="showTab('vue')">
+                            <i class="fab fa-vuejs"></i> Vue 3
+                        </button>
+                        <button class="tab-btn" onclick="showTab('svelte')">
+                            <i class="fas fa-fire"></i> Svelte
+                        </button>
+                    </div>
+
+                    <div id="tab-laravel" class="tab-content active">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Laravel - Service Class</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-php">&lt;?php
+// app/Services/BioExploreService.php
+
+namespace App\Services;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+
+class BioExploreService
+{
+    private string $apiUrl = 'https://smartonesda.github.io/bioexplore-nusantara/assets/data/provinsi.json';
+
+    /**
+     * Get all provinces data (cached for 24 hours)
+     */
+    public function getAllData(): array
+    {
+        return Cache::remember('bioexplore_data', 86400, function () {
+            $response = Http::get($this-&gt;apiUrl);
+            return $response-&gt;json();
+        });
+    }
+
+    /**
+     * Get data for specific province
+     */
+    public function getProvinsi(string $nama): ?array
+    {
+        $data = $this-&gt;getAllData();
+        return $data[$nama] ?? null;
+    }
+
+    /**
+     * Get flora identitas
+     */
+    public function getFloraIdentitas(string $provinsi): ?array
+    {
+        $data = $this-&gt;getProvinsi($provinsi);
+        if (!$data) return null;
+        
+        $flora = $data['flora'];
+        unset($flora['lainnya']);
+        return $flora;
+    }
+
+    /**
+     * Get fauna identitas
+     */
+    public function getFaunaIdentitas(string $provinsi): ?array
+    {
+        $data = $this-&gt;getProvinsi($provinsi);
+        if (!$data) return null;
+        
+        $fauna = $data['fauna'];
+        unset($fauna['lainnya']);
+        return $fauna;
+    }
+
+    /**
+     * Search species by name
+     */
+    public function searchSpecies(string $keyword): array
+    {
+        $data = $this-&gt;getAllData();
+        $results = [];
+        $keyword = strtolower($keyword);
+
+        foreach ($data as $provinsi =&gt; $content) {
+            // Search flora
+            if (str_contains(strtolower($content['flora']['nama']), $keyword)) {
+                $results[] = [
+                    'provinsi' =&gt; $provinsi,
+                    'type' =&gt; 'Flora Identitas',
+                    'data' =&gt; $content['flora']
+                ];
+            }
+
+            // Search fauna
+            if (str_contains(strtolower($content['fauna']['nama']), $keyword)) {
+                $results[] = [
+                    'provinsi' =&gt; $provinsi,
+                    'type' =&gt; 'Fauna Identitas',
+                    'data' =&gt; $content['fauna']
+                ];
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Filter by conservation status
+     */
+    public function filterByStatus(string $status, string $type = 'flora'): array
+    {
+        $data = $this-&gt;getAllData();
+        $results = [];
+
+        foreach ($data as $provinsi =&gt; $content) {
+            // Check main species
+            if (str_contains($content[$type]['status'], $status)) {
+                $results[] = [
+                    'provinsi' =&gt; $provinsi,
+                    'type' =&gt; ucfirst($type) . ' Identitas',
+                    ...$content[$type]
+                ];
+            }
+
+            // Check lainnya
+            foreach ($content[$type]['lainnya'] as $species) {
+                if ($species['status'] === $status) {
+                    $results[] = [
+                        'provinsi' =&gt; $provinsi,
+                        'type' =&gt; ucfirst($type) . ' Lainnya',
+                        ...$species
+                    ];
+                }
+            }
+        }
+
+        return $results;
+    }
+}</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Laravel - Controller</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-php">&lt;?php
+// app/Http/Controllers/BioExploreController.php
+
+namespace App\Http\Controllers;
+
+use App\Services\BioExploreService;
+use Illuminate\Http\Request;
+
+class BioExploreController extends Controller
+{
+    public function __construct(
+        private BioExploreService $bioExplore
+    ) {}
+
+    public function index()
+    {
+        $data = $this-&gt;bioExplore-&gt;getAllData();
+        $provinsiList = array_keys($data);
+        
+        return view('bioexplore.index', compact('provinsiList'));
+    }
+
+    public function show(string $provinsi)
+    {
+        $data = $this-&gt;bioExplore-&gt;getProvinsi($provinsi);
+        
+        if (!$data) {
+            abort(404, 'Provinsi tidak ditemukan');
+        }
+
+        return view('bioexplore.show', [
+            'provinsi' =&gt; $provinsi,
+            'flora' =&gt; $data['flora'],
+            'fauna' =&gt; $data['fauna']
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request-&gt;input('q');
+        $results = $this-&gt;bioExplore-&gt;searchSpecies($keyword);
+        
+        return response()-&gt;json($results);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="tab-ci" class="tab-content">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">CodeIgniter 4 - Library</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-php">&lt;?php
+// app/Libraries/BioExploreLib.php
+
+namespace App\Libraries;
+
+use CodeIgniter\HTTP\CURLRequest;
+
+class BioExploreLib
+{
+    private string $apiUrl = 'https://smartonesda.github.io/bioexplore-nusantara/assets/data/provinsi.json';
+    private $cache;
+    private $client;
+
+    public function __construct()
+    {
+        $this-&gt;cache = \Config\Services::cache();
+        $this-&gt;client = \Config\Services::curlrequest();
+    }
+
+    /**
+     * Get all data (cached)
+     */
+    public function getAllData(): array
+    {
+        $cacheKey = 'bioexplore_all_data';
+        
+        if (!$data = $this-&gt;cache-&gt;get($cacheKey)) {
+            $response = $this-&gt;client-&gt;get($this-&gt;apiUrl);
+            $data = json_decode($response-&gt;getBody(), true);
+            $this-&gt;cache-&gt;save($cacheKey, $data, 86400); // 24 hours
+        }
+        
+        return $data;
+    }
+
+    /**
+     * Get specific province
+     */
+    public function getProvinsi(string $nama): ?array
+    {
+        $data = $this-&gt;getAllData();
+        return $data[$nama] ?? null;
+    }
+
+    /**
+     * Get flora identitas
+     */
+    public function getFloraIdentitas(string $provinsi): ?array
+    {
+        $data = $this-&gt;getProvinsi($provinsi);
+        if (!$data) return null;
+        
+        $flora = $data['flora'];
+        unset($flora['lainnya']);
+        return $flora;
+    }
+
+    /**
+     * Get fauna identitas
+     */
+    public function getFaunaIdentitas(string $provinsi): ?array
+    {
+        $data = $this-&gt;getProvinsi($provinsi);
+        if (!$data) return null;
+        
+        $fauna = $data['fauna'];
+        unset($fauna['lainnya']);
+        return $fauna;
+    }
+
+    /**
+     * Get all province names
+     */
+    public function getProvinsiList(): array
+    {
+        return array_keys($this-&gt;getAllData());
+    }
+
+    /**
+     * Search species
+     */
+    public function searchSpecies(string $keyword): array
+    {
+        $data = $this-&gt;getAllData();
+        $results = [];
+        $keyword = strtolower($keyword);
+
+        foreach ($data as $provinsi =&gt; $content) {
+            if (stripos($content['flora']['nama'], $keyword) !== false) {
+                $results[] = [
+                    'provinsi' =&gt; $provinsi,
+                    'type' =&gt; 'Flora Identitas',
+                    'data' =&gt; $content['flora']
+                ];
+            }
+            if (stripos($content['fauna']['nama'], $keyword) !== false) {
+                $results[] = [
+                    'provinsi' =&gt; $provinsi,
+                    'type' =&gt; 'Fauna Identitas', 
+                    'data' =&gt; $content['fauna']
+                ];
+            }
+        }
+
+        return $results;
+    }
+}</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">CodeIgniter 4 - Controller</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-php">&lt;?php
+// app/Controllers/BioExplore.php
+
+namespace App\Controllers;
+
+use App\Libraries\BioExploreLib;
+
+class BioExplore extends BaseController
+{
+    private BioExploreLib $bioExplore;
+
+    public function __construct()
+    {
+        $this-&gt;bioExplore = new BioExploreLib();
+    }
+
+    public function index()
+    {
+        $data = [
+            'title' =&gt; 'BioExplore Nusantara',
+            'provinsiList' =&gt; $this-&gt;bioExplore-&gt;getProvinsiList()
+        ];
+        
+        return view('bioexplore/index', $data);
+    }
+
+    public function show(string $provinsi)
+    {
+        $provinsiData = $this-&gt;bioExplore-&gt;getProvinsi($provinsi);
+        
+        if (!$provinsiData) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title' =&gt; "Flora & Fauna {$provinsi}",
+            'provinsi' =&gt; $provinsi,
+            'flora' =&gt; $provinsiData['flora'],
+            'fauna' =&gt; $provinsiData['fauna']
+        ];
+        
+        return view('bioexplore/show', $data);
+    }
+
+    public function api_search()
+    {
+        $keyword = $this-&gt;request-&gt;getGet('q');
+        $results = $this-&gt;bioExplore-&gt;searchSpecies($keyword);
+        
+        return $this-&gt;response-&gt;setJSON($results);
+    }
+
+    public function api_provinsi(string $nama)
+    {
+        $data = $this-&gt;bioExplore-&gt;getProvinsi($nama);
+        
+        if (!$data) {
+            return $this-&gt;response-&gt;setStatusCode(404)-&gt;setJSON([
+                'error' =&gt; 'Provinsi tidak ditemukan'
+            ]);
+        }
+        
+        return $this-&gt;response-&gt;setJSON($data);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="tab-react" class="tab-content">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">React (Custom Hook)</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">import { useState, useEffect } from 'react';
+
+function useProvinsiData(namaProvinsi) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() =&gt; {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        const res = await fetch('/assets/data/provinsi.json');
+        const allData = await res.json();
+        setData(allData[namaProvinsi]);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    if (namaProvinsi) fetchData();
+  }, [namaProvinsi]);
+
+  return { data, loading, error };
+}
+
+// Usage in component
+function FloraCard({ provinsi }) {
+  const { data, loading, error } = useProvinsiData(provinsi);
+  
+  if (loading) return &lt;div&gt;Loading...&lt;/div&gt;;
+  if (error) return &lt;div&gt;Error: {error}&lt;/div&gt;;
+  
+  return (
+    &lt;div className="flora-card"&gt;
+      &lt;h2&gt;{data.flora.nama}&lt;/h2&gt;
+      &lt;p&gt;&lt;em&gt;{data.flora.latin}&lt;/em&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="tab-vue" class="tab-content">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Vue 3 (Composition API)</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">&lt;script setup&gt;
+import { ref, onMounted, watch } from 'vue'
+
+const props = defineProps(['provinsi'])
+const flora = ref(null)
+const fauna = ref(null)
+const loading = ref(true)
+
+async function fetchData() {
+  loading.value = true
+  try {
+    const res = await fetch('/assets/data/provinsi.json')
+    const data = await res.json()
+    flora.value = data[props.provinsi].flora
+    fauna.value = data[props.provinsi].fauna
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(fetchData)
+watch(() =&gt; props.provinsi, fetchData)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div v-if="loading"&gt;Loading...&lt;/div&gt;
+  &lt;div v-else&gt;
+    &lt;h2&gt;{{ flora.nama }}&lt;/h2&gt;
+    &lt;p&gt;{{ flora.latin }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="tab-svelte" class="tab-content">
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span class="code-lang">Svelte</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i>
+                                    Copy</button>
+                            </div>
+                            <pre><code class="language-javascript">&lt;script&gt;
+  export let provinsi;
+  
+  let data = null;
+  
+  $: if (provinsi) {
+    fetch('/assets/data/provinsi.json')
+      .then(r =&gt; r.json())
+      .then(all =&gt; {
+        data = all[provinsi];
+      });
+  }
+&lt;/script&gt;
+
+{#if data}
+  &lt;div class="card"&gt;
+    &lt;h2&gt;{data.flora.nama}&lt;/h2&gt;
+    &lt;p&gt;&lt;em&gt;{data.flora.latin}&lt;/em&gt;&lt;/p&gt;
+    &lt;span class="status"&gt;{data.flora.status}&lt;/span&gt;
+  &lt;/div&gt;
+{:else}
+  &lt;p&gt;Loading...&lt;/p&gt;
+{/if}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Status Reference -->
+                <section id="status-ref" class="docs-section">
+                    <h2><i class="fas fa-shield-alt"></i> Status Konservasi</h2>
+
+                    <div class="status-grid">
+                        <div class="status-card safe">
+                            <div class="status-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="status-info">
+                                <h4>Umum</h4>
+                                <span class="iucn-code">LC</span>
+                                <p>Least Concern - Populasi stabil</p>
+                            </div>
+                        </div>
+                        <div class="status-card cultivated">
+                            <div class="status-icon"><i class="fas fa-spa"></i></div>
+                            <div class="status-info">
+                                <h4>Budidaya</h4>
+                                <span class="iucn-code">-</span>
+                                <p>Spesies sudah dibudidayakan</p>
+                            </div>
+                        </div>
+                        <div class="status-card rare">
+                            <div class="status-icon"><i class="fas fa-star"></i></div>
+                            <div class="status-info">
+                                <h4>Langka</h4>
+                                <span class="iucn-code">-</span>
+                                <p>Populasi terbatas, perlu konservasi</p>
+                            </div>
+                        </div>
+                        <div class="status-card vulnerable">
+                            <div class="status-icon"><i class="fas fa-exclamation-circle"></i></div>
+                            <div class="status-info">
+                                <h4>Rentan</h4>
+                                <span class="iucn-code">VU</span>
+                                <p>Vulnerable - Risiko kepunahan menengah</p>
+                            </div>
+                        </div>
+                        <div class="status-card endangered">
+                            <div class="status-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                            <div class="status-info">
+                                <h4>Terancam</h4>
+                                <span class="iucn-code">EN</span>
+                                <p>Endangered - Risiko kepunahan tinggi</p>
+                            </div>
+                        </div>
+                        <div class="status-card critical">
+                            <div class="status-icon"><i class="fas fa-skull-crossbones"></i></div>
+                            <div class="status-info">
+                                <h4>Kritis</h4>
+                                <span class="iucn-code">CR</span>
+                                <p>Critically Endangered - Risiko sangat tinggi</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Status Badge Styling</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                        <pre><code class="language-css">.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-umum { background: #dcfce7; color: #166534; }
+.status-budidaya { background: #dbeafe; color: #1e40af; }
+.status-langka { background: #fef9c3; color: #854d0e; }
+.status-rentan { background: #fed7aa; color: #9a3412; }
+.status-terancam { background: #fecaca; color: #991b1b; }
+.status-kritis { background: #fecdd3; color: #9f1239; }</code></pre>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span class="code-lang">JavaScript Helper</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i> Copy</button>
+                        </div>
+                        <pre><code class="language-javascript">function getStatusClass(status) {
+  const s = status.toLowerCase();
+  if (s.includes('kritis')) return 'status-kritis';
+  if (s.includes('terancam')) return 'status-terancam';
+  if (s.includes('rentan')) return 'status-rentan';
+  if (s.includes('langka')) return 'status-langka';
+  if (s.includes('budidaya')) return 'status-budidaya';
+  return 'status-umum';
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Provinsi List -->
+                <section id="provinsi-list" class="docs-section">
+                    <h2><i class="fas fa-map-marked-alt"></i> Daftar 38 Provinsi</h2>
+
+                    <div class="info-callout warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Case Sensitive!</strong>
+                            <p>Nama provinsi bersifat case-sensitive. Gunakan nama persis seperti di bawah ini.</p>
+                        </div>
+                    </div>
+
+                    <div class="provinsi-grid" id="provinsiGrid">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </section>
+
+                <!-- Tips -->
+                <section class="docs-section">
+                    <h2><i class="fas fa-lightbulb"></i> Tips untuk Developer</h2>
+
+                    <div class="tips-list">
+                        <div class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-bolt"></i></div>
+                            <div class="tip-content">
+                                <h4>Cache Data</h4>
+                                <p>Data bersifat statis. Cache di client-side untuk performa optimal.</p>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="tip-content">
+                                <h4>Error Handling</h4>
+                                <p>Selalu handle case ketika provinsi tidak ditemukan.</p>
+                            </div>
+                        </div>
+                        <div class="tip-item">
+                            <div class="tip-icon"><i class="fas fa-code"></i></div>
+                            <div class="tip-content">
+                                <h4>TypeScript</h4>
+                                <p>Gunakan interface di <a href="./API_DOCS.md">API_DOCS.md</a> untuk type safety.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">BioExplore Nusantara API Documentation © 2026</p>
+            <p class="footer-source">Data: Permen LHK No. P.106/2018, IUCN Red List & Pemerintah Provinsi</p>
+        </div>
+    </footer>
+
+    <!-- Prism.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup-templating.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+
+    <script>
+        // Provinsi list
+        const PROVINSI = [
+            "Aceh", "Sumatera Utara", "Sumatera Barat", "Riau", "Kepulauan Riau",
+            "Jambi", "Sumatera Selatan", "Kepulauan Bangka Belitung", "Bengkulu", "Lampung",
+            "DKI Jakarta", "Banten", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta",
+            "Jawa Timur", "Bali", "Nusa Tenggara Barat", "Nusa Tenggara Timur",
+            "Kalimantan Barat", "Kalimantan Tengah", "Kalimantan Selatan",
+            "Kalimantan Timur", "Kalimantan Utara", "Sulawesi Utara", "Gorontalo",
+            "Sulawesi Tengah", "Sulawesi Barat", "Sulawesi Selatan", "Sulawesi Tenggara",
+            "Maluku", "Maluku Utara", "Papua Barat", "Papua Barat Daya",
+            "Papua Tengah", "Papua Pegunungan", "Papua Selatan", "Papua"
+        ];
+
+        // Populate provinsi grid
+        const grid = document.getElementById('provinsiGrid');
+        PROVINSI.forEach((p, i) => {
+            const item = document.createElement('div');
+            item.className = 'provinsi-item';
+            item.innerHTML = `<span class="provinsi-num">${i + 1}</span> ${p}`;
+            item.onclick = () => copyText(p);
+            grid.appendChild(item);
+        });
+
+        // Copy functions
+        function copyCode(btn) {
+            const code = btn.closest('.code-block').querySelector('code').textContent;
+            navigator.clipboard.writeText(code);
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+            }, 2000);
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text);
+            // Show toast or feedback
+        }
+
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+            Prism.highlightAll();
+        }
+
+        // Sidebar active state
+        const sections = document.querySelectorAll('.docs-section');
+        const navLinks = document.querySelectorAll('.docs-nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -169,6 +169,43 @@ body {
     }
 }
 
+/* Navbar Links Wrapper */
+.navbar-links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.navbar-link-docs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+}
+
+.navbar-link-docs:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+}
+
+@media (max-width: 640px) {
+    .navbar-link-docs span {
+        display: none;
+    }
+
+    .navbar-link-docs {
+        padding: 8px 12px;
+    }
+}
+
 /* Hero Section */
 .hero {
     text-align: center;
